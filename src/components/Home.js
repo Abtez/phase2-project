@@ -11,9 +11,23 @@ export default function Home() {
 			.then((data) => setBlogs(data));
 	}, []);
 
+	function addPost(post){
+		const dataHeaders = {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json',
+				Accept: '*'
+			},
+			body: JSON.stringify(post)
+		}
+
+		fetch('http://localhost:3000/posts', dataHeaders)
+			.then(res => res.json()).then(data => setBlogs([...blogs, data]))
+	}
+
 	return (
 		<>
-        <Hero />
+        <Hero addPost={addPost} />
 
             <div className="container mx-auto grid grid-cols-2 gap-1">
 			{blogs.map(blog => {

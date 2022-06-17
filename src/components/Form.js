@@ -1,10 +1,44 @@
+import React, { useState } from 'react';
 import { Container } from '@chakra-ui/react';
 
-export default function Form() {
+export default function Form({ addPost }) {
+
+	const [formData, setFormData] = useState({
+		author: '',
+		avatar: '',
+		title: '',
+		content: '',
+		image: '',
+		tag: '',
+		date: new Date().toLocaleString()
+	})
+
+	function handleInput(event){
+		const name = event.target.name
+		let value = event.target.value
+
+		setFormData({...formData,
+		[name]: value
+		})
+	}
+
+	function handleSubmit(event){
+		event.preventDefault()
+		addPost(formData);
+		setFormData({
+			author: '',
+			avatar: '',
+			title: '',
+			content: '',
+			image: '',
+			tag: '',
+		})
+	}
+
 	return (
 		<>
 			<Container>
-				<form className='w-full max-w-lg'>
+				<form onSubmit={handleSubmit} className='w-full max-w-lg'>
 					<div className='flex flex-wrap -mx-3 mb-6'>
 						<div className='w-full md:w-1/2 px-3 mb-3 md:mb-0'>
 							<label
@@ -17,8 +51,11 @@ export default function Form() {
 								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white'
 								id='grid-first-name'
 								type='text'
-								placeholder='First Name'
-								required
+								placeholder='Your Name'
+								required 
+								value={formData.author} 
+								onChange={handleInput} 
+								name='author'
 							/>
 							<p className='text-red-500 text-xs italic'>
 								Please fill out this field.
@@ -37,7 +74,10 @@ export default function Form() {
 								id='grid-avatar'
 								type='url'
 								placeholder='Avatar'
-								required
+								required 
+								value={formData.avatar} 
+								onChange={handleInput} 
+								name='avatar'
 							/>
 							<p className='text-gray-600 text-xs italic'>
 								Add your profile picture as URL link..
@@ -56,9 +96,12 @@ export default function Form() {
 							<input
 								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 								id='grid-title'
-								type='password'
+								type='text'
 								placeholder='Title'
-								required
+								required 
+								value={formData.title} 
+								onChange={handleInput} 
+								name='title'
 							/>
 							<p className='text-gray-600 text-xs italic'>
 								Give a very catchy title..
@@ -76,8 +119,11 @@ export default function Form() {
 								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 								id='grid-desription'
 								placeholder='Write something...'
-								required
-							/>
+								required 
+								value={formData.content} 
+								onChange={handleInput} 
+								name='content'
+							></textarea>
 							<p className='text-gray-600 text-xs italic'>
 								Make it as long and as crazy as you'd like
 							</p>
@@ -94,8 +140,11 @@ export default function Form() {
 								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 								id='grid-image'
 								type='url'
-								placeholder='Avatar'
-								required
+								placeholder='Post Image'
+								required 
+								value={formData.image} 
+								onChange={handleInput} 
+								name='image'
 							/>
 							<p className='text-gray-600 text-xs italic'>
 								Add your post image as URL link..
@@ -108,7 +157,10 @@ export default function Form() {
 								className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
 								type='text'
 								placeholder='#Tag'
-								required
+								required 
+								value={formData.tag} 
+								onChange={handleInput} 
+								name='tag'
 							/>
 						</div>
 

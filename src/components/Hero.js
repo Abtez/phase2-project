@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Form from './Form';
 
-export default function Hero() {
+export default function Hero({ addPost }) {
 	const [showForm, setShowForm] = useState(false);
 
 	function toggleForm() {
@@ -14,7 +14,7 @@ export default function Hero() {
 				<h2 className='text-3xl leading-9 font-bold tracking-tight text-gray-800 sm:text-4xl sm:leading-10 mb-5'>
 					Welcome To Your Personalised Random Blog...
 				</h2>
-				{showForm ? <Form /> : false}
+				{showForm ? <Form addPost={addPost} /> : false}
 				<div className='mt-8 flex justify-center'>
 					<div className='inline-flex rounded-md bg-blue-500 shadow'>
 						<button
